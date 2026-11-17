@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SOFTWARE: desarrollo web, programación, tecnología y creatividad digital.">
+  <meta name="theme-color" content="#fff7fb">
+  <title>SOFTWARE | Desarrollo y tecnología</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #df5595;
+      --pink-dark: #bd3979;
+      --pink-soft: #fff0f7;
+      --ink: #302432;
+      --muted: #756875;
+      --white: #fff;
+      --line: #f1dce7;
+      --shadow: 0 18px 55px rgba(117, 53, 87, .10);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fffafd;
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--pink-dark);
+      outline-offset: 4px;
+    }
+    button { cursor: pointer; }
+    img { display: block; max-width: 100%; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(255,255,255,.9);
+      border-bottom: 1px solid rgba(223,85,149,.13);
+      backdrop-filter: blur(16px);
+    }
+    .nav {
+      min-height: 76px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+    }
+    .logo {
+      font: 800 1.35rem "Manrope", sans-serif;
+      letter-spacing: .11em; color: var(--ink);
+    }
+    .logo span { color: var(--pink); }
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a { color: #675967; font-weight: 700; font-size: .94rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--pink-dark); }
+    .nav-cta, .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 12px 19px; border-radius: 999px; font-weight: 700;
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+    .nav-cta, .button-primary {
+      color: white; background: linear-gradient(115deg, #ed80b2, #ce4789);
+      box-shadow: 0 10px 24px rgba(206,71,137,.2);
+    }
+    .nav-cta:hover, .button:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(206,71,137,.24); }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: white; border-radius: 12px; padding: 9px 12px; font-size: 1.25rem; color: var(--pink-dark); }
+    .hero {
+      position: relative; overflow: hidden; padding: 92px 0 88px;
+      background:
+        radial-gradient(circle at 83% 22%, rgba(255,190,220,.5), transparent 27%),
+        radial-gradient(circle at 4% 90%, rgba(255,226,239,.8), transparent 34%),
+        linear-gradient(135deg, #fff 0%, #fff7fb 56%, #fff0f7 100%);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.04fr .96fr; gap: 58px; align-items: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--pink-dark); font-size: .78rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .16em;
+    }
+    .eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--pink); border-radius: 3px; }
+    h1, h2, h3 { font-family: "Manrope", sans-serif; line-height: 1.17; }
+    h1 { margin: 20px 0; font-size: clamp(2.7rem, 5.3vw, 4.8rem); letter-spacing: -.055em; }
+    h1 span { color: var(--pink); }
+    .hero-copy { color: var(--muted); max-width: 590px; font-size: 1.1rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .button-outline { border: 1px solid #e8b8d0; color: var(--pink-dark); background: rgba(255,255,255,.75); }
+    .hero-points { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 32px; color: #725f70; font-size: .9rem; font-weight: 600; }
+    .hero-points i { color: var(--pink); margin-right: 6px; }
+    .hero-image-wrap { position: relative; padding: 12px; border-radius: 32px; background: white; box-shadow: var(--shadow); transform: rotate(1deg); }
+    .hero-image-wrap img { width: 100%; height: 440px; object-fit: cover; border-radius: 24px; }
+    .image-note {
+      position: absolute; left: -28px; bottom: 30px; padding: 14px 18px;
+      background: white; border: 1px solid var(--line); border-radius: 16px;
+      box-shadow: var(--shadow); font-weight: 700; color: var(--ink);
+    }
+    .image-note i { color: var(--pink); margin-right: 8px; }
+    section { padding: 88px 0; }
+    .section-soft { background: linear-gradient(180deg, #fff1f7, #fff9fc); border-top: 1px solid #f7e5ee; border-bottom: 1px solid #f7e5ee; }
+    .section-head { max-width: 690px; margin: 0 auto 46px; text-align: center; }
+    .section-head .eyebrow { justify-content: center; }
+    .section-head h2 { margin: 13px 0; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.045em; }
+    .section-head p { color: var(--muted); margin: 0; }
+    .about-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 22px; }
+    .panel, .service-card, .work-card, .article-card {
+      background: white; border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: 0 12px 40px rgba(117,53,87,.055);
+    }
+    .panel { padding: 34px; }
+    .icon-box {
+      width: 54px; height: 54px; display: grid; place-items: center;
+      border-radius: 17px; color: var(--pink-dark); background: var(--pink-soft);
+      font-size: 1.45rem; margin-bottom: 18px;
+    }
+    .panel h3 { margin: 0 0 12px; font-size: 1.35rem; }
+    .panel p { color: var(--muted); margin: 0; }
+    .services-grid, .work-grid, .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .service-card { padding: 30px; transition: .25s; }
+    .service-card:hover, .work-card:hover, .article-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); border-color: #eab8d0; }
+    .service-card h3 { margin: 17px 0 9px; font-size: 1.2rem; }
+    .service-card p { margin: 0; color: var(--muted); }
+    .service-icon { color: var(--pink); font-size: 1.8rem; }
+    .work-card, .article-card { overflow: hidden; transition: .25s; }
+    .work-card img, .article-card img { width: 100%; height: 220px; object-fit: cover; }
+    .card-body { padding: 23px; }
+    .card-body h3 { margin: 8px 0 10px; font-size: 1.18rem; }
+    .card-body p { margin: 0; color: var(--muted); }
+    .card-kicker { color: var(--pink-dark); font-size: .73rem; font-weight: 800; text-transform: uppercase; letter-spacing: .13em; }
+    .text-link { display: inline-flex; gap: 8px; align-items: center; margin-top: 17px; color: var(--pink-dark); font-weight: 800; }
+    .text-link:hover { color: #8f285d; }
+    .contact {
+      padding: 52px 30px; text-align: center; border-radius: 30px; color: white;
+      background:
+        radial-gradient(circle at 90% 5%, rgba(255,255,255,.22), transparent 28%),
+        linear-gradient(120deg, #e879aa, #c94384);
+      box-shadow: 0 22px 55px rgba(190,60,125,.18);
+    }
+    .contact .eyebrow { color: white; justify-content: center; }
+    .contact .eyebrow::before { background: white; }
+    .contact h2 { margin: 14px 0; font-size: clamp(2rem, 4vw, 2.8rem); }
+    .contact p { max-width: 640px; margin: 0 auto 24px; color: rgba(255,255,255,.9); }
+    .contact .button { color: var(--pink-dark); background: white; }
+    footer { padding: 27px 0; background: white; border-top: 1px solid var(--line); color: var(--muted); }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+    .socials { display: flex; gap: 10px; }
+    .socials a { width: 39px; height: 39px; display: grid; place-items: center; border-radius: 12px; background: var(--pink-soft); color: var(--pink-dark); }
+    .socials a:hover { background: #f9d9e9; }
+    .fade-up { animation: fadeUp .8s ease both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 850px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 42px; }
+      .hero-image-wrap { max-width: 600px; margin: auto; }
+      .about-grid { grid-template-columns: 1fr; }
+      .services-grid, .work-grid, .articles-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { gap: 17px; }
+    }
+    @media (max-width: 640px) {
+      .container { width: min(100% - 30px, 1160px); }
+      .nav { min-height: 68px; flex-wrap: wrap; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; width: 100%; padding: 4px 0 17px; flex-direction: column; align-items: flex-start; gap: 13px; }
+      .nav-links.open { display: flex; }
+      .nav-cta { display: none; }
+      .hero { padding: 66px 0 65px; }
+      .hero-image-wrap img { height: 300px; }
+      .image-note { left: 10px; bottom: 18px; }
+      section { padding: 68px 0; }
+      .services-grid, .work-grid, .articles-grid { grid-template-columns: 1fr; }
+      .panel, .service-card { padding: 25px; }
+      .footer-row { flex-direction: column; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <a class="logo" href="#inicio">SOFT<span>WARE</span></a>
+      <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-controls="menu-principal" aria-expanded="false"><i class="bi bi-list"></i></button>
+      <nav class="nav-links" id="menu-principal" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a><a href="#nosotros">Sobre mí</a><a href="#servicios">Servicios</a><a href="#proyectos">Proyectos</a><a href="#articulos">Artículos</a>
+      </nav>
+      <a class="nav-cta" href="#contacto">Hablemos <i class="bi bi-arrow-up-right"></i></a>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div class="fade-up">
+        <div class="eyebrow">Creatividad · Tecnología · Innovación</div>
+        <h1>Ideas digitales con un toque <span>extraordinario.</span></h1>
+        <p class="hero-copy">Bienvenido a SOFTWARE, un espacio dedicado al desarrollo web, la programación y la tecnología. Creamos experiencias digitales atractivas, útiles y fáciles de explorar.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#proyectos">Explorar proyectos <i class="bi bi-arrow-right"></i></a>
+          <a class="button button-outline" href="#nosotros">Conocer más</a>
+        </div>
+        <div class="hero-points">
+          <span><i class="bi bi-check-circle-fill"></i>Diseño adaptable</span>
+          <span><i class="bi bi-check-circle-fill"></i>Código organizado</span>
+          <span><i class="bi bi-check-circle-fill"></i>Ideas creativas</span>
+        </div>
+      </div>
+      <div class="hero-image-wrap fade-up">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85" loading="lazy" decoding="async" alt="Computador portátil en un espacio de trabajo de desarrollo web">
+        <div class="image-note"><i class="bi bi-code-slash"></i>Desarrollo web & software</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section-soft" id="nosotros">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Conoce SOFTWARE</div>
+          <h2>Tecnología que inspira nuevas ideas</h2>
+          <p>Un lugar para aprender, crear y compartir conocimientos sobre el mundo digital.</p>
+        </div>
+        <div class="about-grid">
+          <article class="panel">
+            <div class="icon-box"><i class="bi bi-laptop"></i></div>
+            <h3>Desarrollo con propósito</h3>
+            <p>Nos enfocamos en construir páginas web con una presentación cuidada, navegación sencilla y contenido organizado. Cada detalle ayuda a que la experiencia sea clara y agradable.</p>
+          </article>
+          <article class="panel">
+            <div class="icon-box"><i class="bi bi-lightbulb"></i></div>
+            <h3>Aprender y evolucionar</h3>
+            <p>Exploramos herramientas, lenguajes y tendencias para fortalecer habilidades y convertir ideas en proyectos digitales.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Lo que encontrarás</div>
+          <h2>Un universo de posibilidades</h2>
+          <p>Contenido y soluciones relacionadas con la creación de experiencias digitales.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card">
+            <i class="bi bi-window service-icon"></i>
+            <h3>Diseño y desarrollo web</h3>
+            <p>Páginas modernas, organizadas y adaptables a celulares, tabletas y computadores.</p>
+          </article>
+          <article class="service-card">
+            <i class="bi bi-braces service-icon"></i>
+            <h3>Programación</h3>
+            <p>Conceptos, ejercicios y recursos para comprender cómo se construye el software.</p>
+          </article>
+          <article class="service-card">
+            <i class="bi bi-journal-richtext service-icon"></i>
+            <h3>Artículos tecnológicos</h3>
+            <p>Lecturas y explicaciones sencillas sobre herramientas, tendencias y aprendizaje digital.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-soft" id="proyectos">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Ideas en acción</div>
+          <h2>Proyectos destacados</h2>
+          <p>Ejemplos de áreas en las que el diseño y la tecnología trabajan juntos.</p>
+        </div>
+        <div class="work-grid">
+          <article class="work-card">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=85" loading="lazy" decoding="async" alt="Panel de analítica web con gráficos y estadísticas">
+            <div class="card-body"><span class="card-kicker">Diseño digital</span><h3>Interfaces y sitios web</h3><p>Diseño de páginas con estructura visual clara y navegación intuitiva.</p></div>
+          </article>
+          <article class="work-card">
+            <img src="https://images.unsplash.com/photo-1555066392-8f2e6f6b4b7c?auto=format&fit=crop&w=900&q=85" loading="lazy" decoding="async" alt="Código fuente en pantalla de un editor de programación">
+            <div class="card-body"><span class="card-kicker">Desarrollo</span><h3>Prácticas de programación</h3><p>Exploración de código, lógica y herramientas para crear soluciones.</p></div>
+          </article>
+          <article class="work-card">
+            <img src="https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=900&q=85" loading="lazy" decoding="async" alt="Cuaderno abierto y escritorio para escribir contenido">
+            <div class="card-body"><span class="card-kicker">Contenido</span><h3>Blog de tecnología</h3><p>Organización de ideas y publicaciones para compartir conocimientos.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="articulos">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Aprende algo nuevo</div>
+          <h2>Artículos y recursos</h2>
+          <p>Temas para descubrir el desarrollo web y continuar aprendiendo programación.</p>
+        </div>
+        <div class="articles-grid">
+          <article class="article-card">
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=85" loading="lazy" decoding="async" alt="Código HTML y CSS mostrado en un monitor">
+            <div class="card-body"><span class="card-kicker">Desarrollo web</span><h3>HTML y CSS desde cero</h3><p>Una introducción a la estructura y los estilos de una página web.</p><a class="text-link" href="https://developer.mozilla.org/es/docs/Learn" target="_blank" rel="noopener noreferrer">Explorar guía <i class="bi bi-arrow-up-right"></i></a></div>
+          </article>
+          <article class="article-card">
+            <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=900&q=85" loading="lazy" decoding="async" alt="Pantalla con código JavaScript en un editor">
+            <div class="card-body"><span class="card-kicker">Programación</span><h3>Primeros pasos con JavaScript</h3><p>Conoce cómo agregar interacción y dinamismo a un sitio web.</p><a class="text-link" href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">Aprender JavaScript <i class="bi bi-arrow-up-right"></i></a></div>
+          </article>
+          <article class="article-card">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85" loading="lazy" decoding="async" alt="Persona estudiando y aprendiendo con un computador portátil">
+            <div class="card-body"><span class="card-kicker">Aprendizaje</span><h3>Recursos para aprender tecnología</h3><p>Plataformas y documentación para practicar nuevas habilidades.</p><a class="text-link" href="https://www.freecodecamp.org/espanol/" target="_blank" rel="noopener noreferrer">Ver recursos <i class="bi bi-arrow-up-right"></i></a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-soft" id="contacto">
+      <div class="container">
+        <div class="contact">
+          <div class="eyebrow">Conectemos</div>
+          <h2>Las grandes ideas comienzan aquí.</h2>
+          <p>Explora, aprende y descubre nuevas posibilidades en el mundo del software y la programación.</p>
+          <a class="button" href="https://github.com/" target="_blank" rel="noopener noreferrer">Visitar GitHub <i class="bi bi-github"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>© 2026 SOFTWARE · Tecnología y creatividad digital.</span>
+      <div class="socials">
+        <a href="https://github.com/" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
+        <a href="https://www.linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuButton && navLinks) {
+      const closeMenu = () => {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Abrir menú');
+        menuButton.innerHTML = '<i class="bi bi-list" aria-hidden="true"></i>';
+      };
+
+      const openMenu = () => {
+        navLinks.classList.add('open');
+        menuButton.setAttribute('aria-expanded', 'true');
+        menuButton.setAttribute('aria-label', 'Cerrar menú');
+        menuButton.innerHTML = '<i class="bi bi-x-lg" aria-hidden="true"></i>';
+      };
+
+      menuButton.addEventListener('click', () => {
+        const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+        isOpen ? closeMenu() : openMenu();
+      });
+
+      navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeMenu();
+          menuButton.focus();
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 640) closeMenu();
+      });
+    }
+  </script>
+</body>
+</html>
